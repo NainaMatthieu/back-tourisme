@@ -65,6 +65,14 @@ router.get('/api/videos', (req, res) => {
 });
 // recupérer la liste des lieux touristiques et ses détails
 router.get('/list', (req, res) => {
-   
+  console.log(TouristSpots)
+   TouristSpots.find({}).exec()
+   .then(spots => {
+     return res.json(spots);
+   })
+   .catch(err => {
+     console.error('Erreur lors de la recherche des spots touristiques :', err);
+     return res.status(500).json({ error: 'Erreur serveur' });
+   });
 });
 module.exports = router;
