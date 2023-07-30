@@ -17,9 +17,6 @@ require('./util/DBConnexion');
 app.use(bodyParser.json());
 app.use(cors());
 
-const videoRoute = require("./router/VideoList");
-app.use('/vid',videoRoute);
-
 const TouristSpotRoute = require('./router/TouristSpotsRoute');
 app.use('/touristspots',TouristSpotRoute);
 

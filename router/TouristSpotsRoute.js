@@ -7,45 +7,27 @@ const TouristSpots = require('../model/TouristSpots');
 const videosDirectory = path.join(__dirname, 'videos');
 const imagesDirectory = path.join(__dirname, 'images');
 
-router.get('/api/videos', (req, res) => {
-  // Lire le contenu du répertoire "videos"
-  fs.readdir(videosDirectory, (err, videoFiles) => {
+// Route pour servir les images individuelles
+router.get('/img/:imgname', (req, res) => {
+  const imgName = req.params.imgname; // Utilisez la même casse pour récupérer le nom de l'image
+  const imgPath = path.join(__dirname, 'images', imgName);
+
+  // Vérifiez que le fichier image existe avant de l'envoyer
+  fs.access(imgPath, fs.constants.R_OK, (err) => {
     if (err) {
-      console.error('Erreur lors de la lecture du répertoire des vidéos :', err);
-      return res.status(500).json({ error: 'Erreur serveur' });
+      console.error('Erreur lors de l\'accès au fichier image :', err);
+      return res.status(404).send('Image non trouvée');
     }
 
-    // Lire le contenu du répertoire "images"
-    fs.readdir(imagesDirectory, (err, imageFiles) => {
-      if (err) {
-        console.error('Erreur lors de la lecture du répertoire des images :', err);
-        return res.status(500).json({ error: 'Erreur serveur' });
-      }
+    // Définissez le type MIME du fichier image pour la réponse
+    res.set('Content-Type', 'image/jpeg'); // Ajustez le type MIME selon le format de votre image
 
-      // Filtrer les fichiers vidéo pour ne récupérer que les vidéos
-      const videoFilesFiltered = videoFiles.filter(file => {
-        const fileExtension = path.extname(file).toLowerCase();
-        return ['.mp4', '.avi', '.mkv', '.mov'].includes(fileExtension);
-      });
-
-      // Créer une liste d'objets vidéo avec les noms des fichiers et les URL d'image
-      const videoList = videoFilesFiltered.map(file => {
-        const imageFile = imageFiles.find(img => img.startsWith(path.basename(file, path.extname(file))));
-        const imageUrl = imageFile ? `/vid/api/images/${imageFile}` : '/default-image.jpg'; // Définir une image par défaut si aucune image correspondante n'est trouvée
-        return {
-          name: file,
-          urlvideo: `/vid/api/videos/${file}`,
-          urlimg: imageUrl,
-        };
-      });
-
-      // Renvoyer la liste des vidéos sous forme de réponse JSON
-      res.json(videoList);
-    });
+    // Envoyer le fichier image en réponse
+    res.sendFile(imgPath);
   });
-});  
+});
   // Route pour servir les vidéos individuelles
-  router.get('/api/videos/:videoName', (req, res) => {
+  router.get('/video/:videoName', (req, res) => {
     const videoName = req.params.videoName;
     const videoPath = path.join(__dirname, 'videos', videoName);
   
