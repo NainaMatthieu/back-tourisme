@@ -2,35 +2,46 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const path = require('path');
-
-
-// Chemin vers le répertoire contenant les vidéos
 const videosDirectory = path.join(__dirname, 'videos');
-// Route pour récupérer la liste des vidéos
+const imagesDirectory = path.join(__dirname, 'images');
+
 router.get('/api/videos', (req, res) => {
   // Lire le contenu du répertoire "videos"
-  fs.readdir(videosDirectory, (err, files) => {
+  fs.readdir(videosDirectory, (err, videoFiles) => {
     if (err) {
-      console.error('Erreur lors de la lecture du répertoire :', err);
+      console.error('Erreur lors de la lecture du répertoire des vidéos :', err);
       return res.status(500).json({ error: 'Erreur serveur' });
     }
 
-    // Filtrer les fichiers pour ne récupérer que les vidéos
-    const videoFiles = files.filter(file => {
-      const fileExtension = path.extname(file).toLowerCase();
-      return ['.mp4', '.avi', '.mkv', '.mov'].includes(fileExtension);
-    });
+    // Lire le contenu du répertoire "images"
+    fs.readdir(imagesDirectory, (err, imageFiles) => {
+      if (err) {
+        console.error('Erreur lors de la lecture du répertoire des images :', err);
+        return res.status(500).json({ error: 'Erreur serveur' });
+      }
 
-    // Créer une liste d'objets vidéo avec les noms des fichiers
-    const videoList = videoFiles.map(file => {
-      return {
-        name: file,
-        url: `/vid/api/videos/${file}` // Vous pouvez ajuster l'URL selon vos besoins
-      };
-    });
+      // Filtrer les fichiers vidéo pour ne récupérer que les vidéos
+      const videoFilesFiltered = videoFiles.filter(file => {
+        const fileExtension = path.extname(file).toLowerCase();
+        return ['.mp4', '.avi', '.mkv', '.mov'].includes(fileExtension);
+      });
 
-    // Renvoyer la liste des vidéos sous forme de réponse JSON
-    res.json(videoList);
+      // Créer une liste d'objets vidéo avec les noms des fichiers et les URL d'image
+      const videoList = videoFilesFiltered.map(file => {
+        console.log(file)
+        const imageFile = imageFiles.find(img => img.startsWith(path.basename(file, path.extname(file))));
+        console.log(imageFile);
+        const imageUrl = imageFile ? `/vid/api/images/${imageFile}` : '/default-image.jpg'; // Définir une image par défaut si aucune image correspondante n'est trouvée
+        return {
+          name: file,
+          urlvideo: `/vid/api/videos/${file}`,
+          urlimg: imageUrl,
+        };
+      });
+
+      // Renvoyer la liste des vidéos sous forme de réponse JSON
+      res.json(videoList);
+    });
   });
 });
 
@@ -53,4 +64,5 @@ router.get('/api/videos/:videoName', (req, res) => {
     res.sendFile(videoPath);
   });
 });
+
 module.exports = router;
