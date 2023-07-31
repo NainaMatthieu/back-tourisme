@@ -25,10 +25,10 @@ async function insertTS_Cat() {
             
             Le Parc de Ranomafana Ifanadiana compte près de 115 espèces d’oiseaux, 90 espèces de papillons, plusieurs espèces de reptiles et d’amphibiens. Le parc est aussi apprécié pour sa station thermale propice pour les traitements curatifs.
             `,
-            video: '/vid/api/videos/0.mp4',
+            video: 'touristspots/video/ranomafana.mp4',
             image: [
                 {
-                url : '/vid/api/images/ranomafana.jpg'
+                url : 'touristspots/img/ranomafana.jpg'
                 }
             ],
           })
@@ -39,10 +39,10 @@ async function insertTS_Cat() {
             name: 'Parc d’Isalo ',
             location: 'Région d’Ihorombe',
             description : `Il est l’un des sites les plus visités à Madagascar. Le parc d’Isalo est un massif ruiniforme de l’ère jurassique dont la beauté ne peut pas être contée. Il se trouve dans la région d’Ihorombe à près de 279 kilomètres au sud de Fianarantsoa. Le parc renferme de nombreuses espèces de lémuriens diurnes et nocturnes, plusieurs carnivores, des reptiles, des amphibiens, des rongeurs et près de 77 espèces d’oiseaux. Il est aussi loué pour ses plantes fascinantes, dont le Pachypodium rosulatum. Le Varika, l’incroyable lémurien qui fait le renom de Madagascar est aussi présent dans ce parc.`,
-            video: '/vid/api/videos/0.mp4',
+            video: 'touristspots/video/isalo.mp4',
             image: [
                 {
-                url : '/vid/api/images/isalo.jpg'
+                url : 'touristspots/img/isalo.jpg'
                 }
             ],
             distance : 100,
