@@ -4,10 +4,10 @@ const app = express();
 const cors  = require('cors');
 const bodyParser = require('body-parser');
 require('./util/DBConnexion');
-// const createDocumentWithCustomId = require('./util/insertionData');
 
 // insertion data
-// createDocumentWithCustomId()
+// const insertTS_Cat = require('./util/insertionData');
+// insertTS_Cat()
 //   .then(insertedId => {
 //     console.log('Id inséré:', insertedId);
 //   })

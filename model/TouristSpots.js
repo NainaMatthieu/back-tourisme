@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const TouristSpotsSchema = mongoose.Schema({
-    name:String,
-    lieu:String,
-	type:String,
+	name:String,
+    location:String,
+	idCategorie:String,
 	description :String,
 	video: String,
 	isPopulaire : Boolean,
@@ -12,5 +12,8 @@ const TouristSpotsSchema = mongoose.Schema({
 		url : String
 	    }
     ],
+	distance : Number,
+	guide : Boolean,
+	score : Number
 }, { collection: 'TouristSpots' })
 module.exports = mongoose.model('TouristSpots',TouristSpotsSchema);
