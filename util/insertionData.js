@@ -31,6 +31,11 @@ async function insertTS_Cat() {
                 url : 'touristspots/img/ranomafana.jpg'
                 }
             ],
+            distance : 500,
+            guide : false,
+            score : 80,
+            idCategorie : '64c74b287b8b715cc336d3ed',
+            isPopulaire : true
           })
         ,
     
@@ -47,10 +52,12 @@ async function insertTS_Cat() {
             ],
             distance : 100,
             guide : true,
-            score : 100
+            score : 100,
+            idCategorie : '64c74b287b8b715cc336d3e3',
+            isPopulaire : false
           })
       ];
-    // Insertion du document dans la collection
+    // Insertion des documents dans TouristSpots et categorie
    const result = await collection.insertMany(documents);
    await insertCategorie(db);
    console.log('touristSpots insérés avec succès avec les ids personnalisés:', result.insertedIds);
