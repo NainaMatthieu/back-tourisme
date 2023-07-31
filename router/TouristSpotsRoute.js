@@ -55,7 +55,18 @@ router.get('/list', (req, res) => {
    })
    .catch(err => {
      console.error('Erreur lors de la recherche des spots touristiques :', err);
-     return res.status(500).json({ error: 'Erreur serveur' });
+     return res.status(500).json({ error: err});
+   });
+});
+// recupérer la liste des meilleurs lieux touristiques et ses détails
+router.get('/favoris', (req, res) => {
+   TouristSpots.find({isPopulaire : true}).exec()
+   .then(spots => {
+     return res.json(spots);
+   })
+   .catch(err => {
+     console.error('Erreur lors de la recherche des meilleurs spots touristiques :', err);
+     return res.status(500).json({ error: err });
    });
 });
 module.exports = router;

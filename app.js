@@ -20,4 +20,6 @@ app.use(cors());
 const TouristSpotRoute = require('./router/TouristSpotsRoute');
 app.use('/touristspots',TouristSpotRoute);
 
+const CategorieRoute = require('./router/CategorieRoute');
+app.use('/categorie',CategorieRoute);
 app.listen(9000);

@@ -6,7 +6,10 @@ const TouristSpotsSchema = mongoose.Schema({
 	idCategorie:String,
 	description :String,
 	video: String,
-	isPopulaire : Boolean,
+	isPopulaire : {
+		type : Boolean,
+		value : false
+	},
 	image: [
         {
 		url : String
