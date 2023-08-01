@@ -1,0 +1,7 @@
+https://localhost:9000/touristspots/list
+https://localhost:9000/touristspots/img/isalo.jpg (ity zany isalo.jpg arakaraka nom image n'ilay toerana)
+https://localhost:9000/touristspots/video/isalo.mp4
+https://localhost:9000/touristspots/favoris
+https://localhost:9000/categorie/list
+
+
