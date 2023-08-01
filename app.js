@@ -28,4 +28,7 @@ app.use('/touristspots', TouristSpotRoute);
 const CategorieRoute = require('./router/CategorieRoute');
 app.use('/categorie', CategorieRoute);
 
+
+const UserRoute = require('./router/UtilisateurRoute');
+app.use('/categorie', UserRoute);
 server.listen(9000);
