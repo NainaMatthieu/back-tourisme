@@ -48,6 +48,7 @@ router.get('/img/:imgname', (req, res) => {
 });
 // recupérer la liste des lieux touristiques et ses détails
 router.get('/list', (req, res) => {
+  console.log("lieu appelé")
   console.log(TouristSpots)
    TouristSpots.find({}).exec()
    .then(spots => {
