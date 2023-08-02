@@ -30,5 +30,5 @@ app.use('/categorie', CategorieRoute);
 
 
 const UserRoute = require('./router/UtilisateurRoute');
-app.use('/categorie', UserRoute);
+app.use('/user', UserRoute);
 server.listen(9000);
