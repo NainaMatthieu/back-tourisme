@@ -3,5 +3,16 @@ https://localhost:9000/touristspots/img/isalo.jpg (ity zany isalo.jpg arakaraka 
 https://localhost:9000/touristspots/video/isalo.mp4
 https://localhost:9000/touristspots/favoris
 https://localhost:9000/categorie/list
+https://localhost:9000/touristspots/:id
+https://localhost:9000/touristspots/categorie/:cat
+------------------POST-------------------------
+https://localhost:9000/user/logup
+{
+    "mail" :"andrianmattax@gmail.com" ,
+    "nom" :"Naina" ,
+    "prenom" : "Matthieu",
+    "password" : "1111"
+}
+https://localhost:9000/user/login
 
 

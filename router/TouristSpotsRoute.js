@@ -70,4 +70,26 @@ router.get('/favoris', (req, res) => {
      return res.status(500).json({ error: err });
    });
 });
+// recupérer la liste des  lieux touristiques par categorie
+router.get('/categorie/:cat', (req, res) => {
+  TouristSpots.find({idCategorie : req.params.cat}).exec()
+  .then(spots => {
+    return res.json(spots);
+  })
+  .catch(err => {
+    console.error('Erreur lors de la recherche des lieux touristiques par catégorie :', err);
+    return res.status(500).json({ error: err });
+  });
+});
+// recupérer un  lieu touristique par id
+router.get('/:id', (req, res) => {
+  TouristSpots.find({_id : req.params.id}).exec()
+  .then(spots => {
+    return res.json(spots);
+  })
+  .catch(err => {
+    console.error('Erreur lors d\' un  lieu touristiqu par id :', err);
+    return res.status(500).json({ error: err });
+  });
+});
 module.exports = router;
