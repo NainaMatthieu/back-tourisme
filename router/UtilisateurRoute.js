@@ -17,14 +17,44 @@ router.post('/login', (req, res) => {
      return res.status(500).json({ error: 'Erreur serveur' });
    });
 });
+//localhost:9000/user/:id 
+router.get('/:id', (req, res) => {
+  Utilisateur.find({_id : req.params.id})
+  .then(user => {
+       if(user.length ==0)
+           return res.status(404).json({error : 'il n\'y a pas d\'utilisateur correspond à l\'id : '+req.params.id})
+       return res.status(200).json({success : user});
+  })
+  .catch(err => {
+    console.error('Erreur get by id :', err);
+    return res.status(500).json({ error: 'Erreur serveur' });
+  });
+});
+//localhost:9000/user/addfavoris 
+router.post('/addfavoris', (req, res) => {
+  Utilisateur.findOneAndUpdate(
+    { _id: req.body.iduser },
+    { $push: { favoris: req.body.touristspot } },
+    { new: true }
+  )
+  .then(user => {
+    console.log("Ajout favoris success"+user);
+    return res.status(200).json({success : user});
+  })
+  .catch(err => {
+    console.error('Erreur get by id :', err);
+    return res.status(500).json({ error: 'Erreur serveur' });
+  });
+});
+
 //localhost:9000/user/logup 
 router.post('/logup', (req, res) => {
-  const usertoLogup = new Utilisateur({
+  const usertoLogup = {
     nom : req.body.nom,
     prenom : req.body.prenom,
     mail : req.body.mail,
     password : req.body.password
-  })
+  }
   // console.log(validerChamp(usertoLogup))
   if(!validerChamp(usertoLogup))
     return res.status(404).json({error : "Tous les champs sont obligatoires."});
@@ -43,7 +73,8 @@ router.post('/logup', (req, res) => {
           console.error('Erreur lors de l\'envoi de l\'e-mail :', error);
         } else {
           console.error('Sucesss :', info);
-          usertoLogup.save()
+          let usertoSave = new Utilisateur(usertoLogup)
+          usertoSave.save()
           .then(savedUser => {
             console.log('Utilisateur enregistré:', savedUser);
             return res.status(200).json({success : savedUser});
@@ -61,8 +92,8 @@ router.post('/logup', (req, res) => {
   });
 });
 function validerChamp(user) {
-  const plainUser = user.toObject();
-  const values = Object.values(plainUser);
+  // const plainUser = user.toObject();
+  const values = Object.values(user);
   for (const value of values) {
     if (value === null || value === undefined || String(value).trim() === '') {
       return false;
@@ -70,7 +101,5 @@ function validerChamp(user) {
   }
   return true;
 }
-
-
 
 module.exports = router;

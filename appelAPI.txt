@@ -5,6 +5,7 @@ https://localhost:9000/touristspots/favoris
 https://localhost:9000/categorie/list
 https://localhost:9000/touristspots/:id
 https://localhost:9000/touristspots/categorie/:cat
+https://localhost:9000/user/:id
 ------------------POST-------------------------
 https://localhost:9000/user/logup
 {
@@ -14,5 +15,11 @@ https://localhost:9000/user/logup
     "password" : "1111"
 }
 https://localhost:9000/user/login
+https://localhost:9000/user/addfavoris 
+{
+    "iduser" :"64cb5e41edbd432efc123423" ,
+    "touristspot" : "64cb5f61427ed1ca94e8731c"
+  
+}
 
 

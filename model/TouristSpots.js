@@ -5,14 +5,18 @@ const TouristSpotsSchema = mongoose.Schema({
     location:String,
 	idCategorie:String,
 	description :String,
-	video: String,
+	url:String,
 	isPopulaire : {
 		type : Boolean,
 		value : false
 	},
+	video:{
+		type: String,
+		value : 'touristspots/video/default.mp4'
+	},
 	image: [
         {
-		url : String
+		url : String,
 	    }
     ],
 	distance : Number,
