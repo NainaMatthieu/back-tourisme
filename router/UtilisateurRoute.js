@@ -6,7 +6,7 @@ const {transporter,mailOptions } = require('../util/EmailInformation');
 
 //localhost:9000/user/login 
 router.post('/login', (req, res) => {
-   Utilisateur.find({mail : req.body.mail, password : req.body.password}).exec()
+   Utilisateur.find({mail : req.body.mail, password : String(req.body.password)}).exec()
    .then(user => {
         if(user.length ==0)
             return res.status(404).json({error : 'Login ou mots de passe incorrecte'})
